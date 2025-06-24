@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Chat";
+    var receiverId = ViewBag.ReceiverId as string;
+}
+<div>
+    <h2>Chat với người dùng: @receiverId</h2>
+    <div id="messagesList" style="border:1px solid #ccc; height:300px; overflow:auto; padding:10px; margin-bottom:10px;"></div>
+    <input type="text" id="messageInput" placeholder="Nhập tin nhắn" class="form-control" />
+    <button id="sendButton" class="btn btn-primary mt-2">Gửi</button>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chathub")
+            .build();
+
+        connection.on("ReceiveMessage", function (user, message) {
+            const msg = `${user}: ${message}`;
+            const li = document.createElement("div");
+            li.textContent = msg;
+            document.getElementById("messagesList").appendChild(li);
+        });
+
+        connection.start().then(function () {
+            document.getElementById("sendButton").disabled = false;
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        document.getElementById("sendButton").addEventListener("click", function (event) {
+            const message = document.getElementById("messageInput").value;
+            const receiverId = "@receiverId";
+            connection.invoke("SendMessage", receiverId, message).catch(function (err) {
+                return console.error(err.toString());
+            });
+            document.getElementById("messageInput").value = "";
+            event.preventDefault();
+        });
+    </script>
+}
+
+
+
+
+

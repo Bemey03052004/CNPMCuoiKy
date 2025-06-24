@@ -1,0 +1,114 @@
+﻿@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = $"Trang cá nhân của {Model.UserProfile.UserName}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Link đến CSS tùy chỉnh -->
+<link href="~/css/Miain.css" rel="stylesheet" asp-append-version="true" />
+<style>
+    /* CSS cho trang profile đã được cung cấp ở câu trả lời trước,
+           bạn có thể giữ nguyên hoặc tùy chỉnh thêm ở đây.
+           Đoạn CSS này đảm bảo giao diện đẹp mắt. */
+    .profile-header {
+        background: linear-gradient(135deg, var(--light-pink) 0%, var(--very-light-pink) 100%);
+        padding: 3rem 0;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid var(--pure-white);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+
+    .profile-username {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-brown);
+        font-family: 'Lora', serif;
+    }
+
+    .profile-contact-info {
+        color: var(--grey-text);
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+
+        .profile-contact-info i {
+            color: var(--main-pink);
+            margin-right: 8px;
+        }
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--dark-brown);
+        margin-bottom: 2rem;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--main-pink);
+        display: inline-block;
+    }
+</style>
+
+<div class="container my-5">
+    <!-- KHU VỰC THÔNG TIN CÁ NHÂN - ĐÃ CẬP NHẬT -->
+    <div class="profile-header ftco-animate">
+        <img src="~/images/default_avatar.png" alt="Avatar của @Model.UserProfile.UserName" class="profile-avatar" />
+        <h1 class="profile-username">@Model.UserProfile.UserName</h1>
+
+        <!-- HIỂN THỊ SỐ ĐIỆN THOẠI -->
+        <div class="profile-contact-info">
+            @if (!string.IsNullOrEmpty(Model.UserProfile.PhoneNumber))
+            {
+                <span>Số điện thoại: @Model.UserProfile.PhoneNumber</span>
+            }
+            else
+            {
+                <span><i class="icon-phone"></i> Chưa cập nhật SĐT</span>
+            }
+        </div>
+    </div>
+
+    <!-- KHU VỰC SẢN PHẨM ĐANG BÁN -->
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <h2 class="section-title">Các sản phẩm đang bán</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model.UserProducts.Any())
+        {
+            @foreach (var product in Model.UserProducts)
+            {
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="@Url.Action("ProductSingle", "BanHang", new { id = product.Id })" class="img-prod">
+                            <img class="img-fluid" src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/default-product.png" : product.ImageUrl)" alt="@product.Name">
+                        </a>
+                        <div class="text py-3 px-3 text-center">
+                            <h3><a href="@Url.Action("ProductSingle", "BanHang", new { id = product.Id })">@product.Name</a></h3>
+                            <div class="pricing">
+                                <p class="price">@product.Price.ToString("N0") VNĐ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-12 text-center">
+                <p class="lead mt-4">Người dùng này chưa đăng bán sản phẩm nào.</p>
+            </div>
+        }
+    </div>
+</div>

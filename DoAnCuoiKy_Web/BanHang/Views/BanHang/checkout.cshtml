@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<link rel="stylesheet" href="css/aos.css">
+
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+	<link rel="stylesheet" href="css/flaticon.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="~/css/checkout.css" rel="stylesheet" />
+    <link href="~/css/miain.css" rel="stylesheet" />
+</head>
+<body class="goto-here">
+
+    <section class="ftco-section">
+        <div class="container">
+            <form asp-action="CheckoutConfirm" method="post">
+                <div class="row">
+                    <!-- Cột bên trái: Địa chỉ giao hàng -->
+                    <div class="col-xl-7">
+                        <h4>Địa chỉ giao hàng</h4>
+                        <div class="form-group">
+                            <label for="selectedLocationId">Chọn địa chỉ:</label>
+                            <select class="form-control" name="selectedLocationId" required>
+                                <option value="">-- Chọn địa chỉ --</option>
+                                @foreach (var location in Model.Locations)
+                                {
+                                    <option value="@location.Id">
+                                        @location.StreetAddress, @location.Ward, @location.District, @location.Province
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <a asp-controller="BanHang" asp-action="AddLocation" class="btn btn-link">+ Thêm địa chỉ mới</a>
+                        </div>
+                    </div>
+
+                    <!-- Cột bên phải: Thông tin giỏ hàng -->
+                    <div class="col-xl-5">
+                        <div class="row mt-5 pt-3">
+                            <div class="col-md-12 d-flex mb-5">
+                                <div class="cart-detail cart-total p-3 p-md-4">
+                                    <h3 class="billing-heading mb-4">Tổng giỏ hàng</h3>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Giá gốc</th>
+                                                <th>Tổng giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.CartItems)
+                                            {
+                                                <tr>
+                                                    <td>@item.ProductName</td>
+                                                    <td>@item.Quantity</td>
+                                                    <td>@item.UnitPrice.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                    <td>@item.TotalPrice.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <hr />
+                                    <p class="d-flex total-price">
+                                        <span>Tổng giá giỏ hàng</span>
+                                        <span>@Model.TotalCartPrice.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Thanh toán -->
+                            <div class="col-md-12">
+                                <div class="cart-detail p-3 p-md-4">
+                                    <h3 class="billing-heading mb-4">Phương thức thanh toán</h3>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="paymentMethod" class="mr-2" checked disabled> Thanh toán khi nhận hàng (COD)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" required class="mr-2"> Tôi đã đọc và chấp nhận các điều khoản</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary py-3 px-4 w-100">Đặt hàng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Đoạn script JavaScript để tạo searchable select (ví dụ đơn giản)
+        const provinceSelect = document.getElementById('province-select');
+        const originalOptions = Array.from(provinceSelect.options);
+
+        provinceSelect.addEventListener('input', function(event) {
+            const searchTerm = event.target.value.toLowerCase();
+            provinceSelect.innerHTML = '<option value="">Chọn Tỉnh/Thành phố</option>'; // Reset danh sách
+
+            originalOptions.forEach(option => {
+                if (option.value !== "" && option.text.toLowerCase().includes(searchTerm)) {
+                    provinceSelect.appendChild(option.cloneNode(true));
+                }
+            });
+        });
+    </script>
+
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="js/scrollax.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+    <script src="~/js/checkout.js"></script>
+
+	<script>
+		$(document).ready(function(){
+
+		var quantitiy=0;
+		   $('.quantity-right-plus').click(function(e){
+
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+					$('#quantity').val(quantity + 1);
+
+
+					// Increment
+
+			});
+
+			 $('.quantity-left-minus').click(function(e){
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+					// Increment
+					if(quantity>0){
+					$('#quantity').val(quantity - 1);
+					}
+			});
+
+		});
+	</script>
+
+</body>
+</html>

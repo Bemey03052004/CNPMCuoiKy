@@ -1,0 +1,159 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+@model IEnumerable<Product>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Quản lý Sản phẩm (Admin)";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Sử dụng layout chung
+}
+
+<link href="~/css/miain.css" rel="stylesheet" />
+
+
+<section class="ftco-section">
+    <div class="container-fluid px-md-5">
+        @* container-fluid để bảng rộng hơn *@
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="row mb-4">
+            <div class="col-12 text-right">
+                <a asp-action="Create" asp-controller="Product" class="btn btn-primary mr-2" style="background-color: var(--main-pink); border-color: var(--main-pink);">
+                    <i class="fas fa-plus-circle mr-2"></i>Thêm Sản Phẩm
+                </a>
+
+                @* Chỉ hiển thị nút này nếu người dùng có vai trò là "Admin" *@
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-info" style="background-color: var(--light-pink); border-color: var(--light-pink); color: var(--dark-brown);">
+                        <i class="fas fa-tags mr-2"></i>Quản lý Danh mục
+                    </a>
+                }
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <p class="lead">Bạn chưa đăng tải sản phẩm nào.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive shadow-sm rounded">
+                <table class="table table-hover product-table-admin align-middle" style="background-color: var(--pure-white);">
+                    <thead style="background-color: var(--light-pink); color: var(--dark-brown);">
+                        <tr class="text-center">
+                            <th scope="col" style="width:80px;">@Html.DisplayNameFor(model => model.First().ImageUrl)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.First().Name)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.First().Price)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.First().Category)</th>
+                            <th scope="col">Người đăng</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.First().StockQuantity)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.First().Unit)</th>
+                            <th scope="col" style="width:180px;">Thao tác</th>
+                            <th scope="col">Trạng thái duyệt</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderByDescending(p => p.Id))
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="@Url.Content(string.IsNullOrEmpty(item.ImageUrl) ? "~/images/default-product.png" : item.ImageUrl)"
+                                         alt="@item.Name" class="img-fluid rounded"
+                                         style="width: 70px; height: 70px; object-fit: cover;" />
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" style="color: var(--dark-brown); font-weight:500;">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </a>
+                                    <br />
+                                    <small class="text-muted">ID: @item.Id</small>
+                                </td>
+                                <td style="color: var(--main-pink); font-weight: bold;">@item.Price.ToString("N0") VNĐ</td>
+                                <td>@(item.Category?.Name ?? "N/A")</td>
+                                <td>
+                                    @if (item.User != null)
+                                    {
+                                        @(item.User.UserName ?? item.User.Email)
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">N/A</span>
+                                    }
+                                </td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.StockQuantity)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.Unit)</td>
+
+                                <td class="text-center">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <form asp-action="UpdateApprovalStatus" asp-controller="Product" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <select name="approvalStatus" class="form-control form-control-sm" onchange="this.form.submit()">
+                                                @foreach (ProductApprovalStatus status in Enum.GetValues(typeof(ProductApprovalStatus)))
+                                                {
+                                                    var displayName = status.GetType()
+                                                    .GetMember(status.ToString())
+                                                    .First()
+                                                    .GetCustomAttributes(typeof(DisplayAttribute), false)
+                                                    .Cast<DisplayAttribute>()
+                                                    .FirstOrDefault()?.Name ?? status.ToString();
+
+                                                    <option value="@((int)status)" selected="@(item.ApprovalStatus == status)">
+                                                        @displayName
+                                                    </option>
+                                                }
+                                            </select>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        var displayName = item.ApprovalStatus.GetType()
+                                        .GetMember(item.ApprovalStatus.ToString())
+                                        .First()
+                                        .GetCustomAttributes(typeof(DisplayAttribute), false)
+                                        .Cast<DisplayAttribute>()
+                                        .FirstOrDefault()?.Name ?? item.ApprovalStatus.ToString();
+
+                                        <span>@displayName</span>
+                                    }
+                                </td>
+
+                                <td class="text-center">
+                                    <div class="btn-group-vertical btn-group-sm" role="group">
+                                        <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-outline-primary mb-1" style="border-color: var(--main-pink); color: var(--main-pink);">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </a>
+                                        <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-outline-info mb-1">
+                                            <i class="fas fa-eye"></i> Xem
+                                        </a>
+                                        <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-outline-danger" style="border-color: var(--dark-pink-accent); color: var(--dark-pink-accent);">
+                                            <i class="fas fa-trash-alt"></i> Xóa
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</section>

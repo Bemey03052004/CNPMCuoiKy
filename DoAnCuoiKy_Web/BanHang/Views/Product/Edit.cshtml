@@ -1,0 +1,133 @@
+﻿@model Product
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/aos.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/ionicons.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/flaticon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/icomoon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+    <link href="~/css/product.css" rel="stylesheet" />
+    <link href="~/css/miain.css" rel="stylesheet" />
+
+</head>
+<body class="goto-here">
+  
+<div class="product-container mt-4">
+    
+
+    <div class="card">
+            <div class="card-header text-white" style="background-color:#FFEBEE;">
+            <h4 class="mb-0">Chỉnh sửa sản phẩm</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Tên sản phẩm</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Giá bán</label>
+                    <input asp-for="Price" type="number" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Mô tả</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">Hình ảnh sản phẩm</label>
+                    <input type="file" asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label">Danh mục</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                        <option value="">-- Chọn danh mục --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Unit" class="form-label">Đơn vị tính</label>
+                    <input asp-for="Unit" class="form-control" placeholder="Ví dụ: kg, hộp, trái..." />
+                    <span asp-validation-for="Unit" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="StockQuantity" class="form-label">Số lượng tồn kho</label>
+                    <input asp-for="StockQuantity" type="number" class="form-control" min="0" />
+                    <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">
+                        <i class="oi oi-check"></i> Lưu thay đổi
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="oi oi-arrow-left"></i> Quay lại danh sách
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+
+
+</body>
+</html>

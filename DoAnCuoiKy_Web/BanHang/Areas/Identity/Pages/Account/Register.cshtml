@@ -1,0 +1,100 @@
+﻿@page
+@model BanHang.Areas.Identity.Pages.Account.RegisterModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Register";
+    var isAdmin = User.IsInRole("Admin");
+}
+<head>
+    <link href="~/css/dk.css" rel="stylesheet" />
+    <link href="~/css/miain.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <h2 class="text-center">Đăng Ký tài khoản</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5 col-xl-4">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <hr />
+
+                <!-- Hiển thị thông báo lỗi -->
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Họ và tên -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.FullName" class="form-control" placeholder="Full Name" />
+                    <label asp-for="Input.FullName">Họ và tên</label>
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <!-- Số điện thoại -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number" />
+                    <label asp-for="Input.PhoneNumber">Số điện thoại</label>
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <!-- Mật khẩu -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password" />
+                    <label asp-for="Input.Password">Mật khẩu</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <!-- Xác nhận mật khẩu -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
+                    <label asp-for="Input.ConfirmPassword">Xác nhận mật khẩu</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <!-- Dropdown chọn quyền nếu là Admin -->
+                @if (isAdmin)
+                {
+                    <div class="form-floating mb-3">
+                        <select asp-for="Input.Role" class="form-control" asp-items="Model.RoleList">
+                            <option value="">-- Chọn quyền --</option>
+                        </select>
+                        <label asp-for="Input.Role">Quyền</label>
+                        <span asp-validation-for="Input.Role" class="text-danger"></span>
+                    </div>
+                }
+
+                <!-- Nút đăng ký -->
+                @if (isAdmin)
+                {
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm px-4">Đăng ký</button>
+                        <a asp-action="AdminDashboard" asp-controller="Admin" class="btn btn-secondary btn-sm px-4">Trở về Admin</a>
+                    </div>
+                }
+                else
+                {
+                    <button type="submit" class="w-100 btn btn-primary btn-lg">Đăng ký</button>
+                }
+
+            </form>
+        </div>
+    </div>
+    <footer>
+        <hr />
+        <p style="color:white">AHIHIHI</p>
+    </footer>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+</body>

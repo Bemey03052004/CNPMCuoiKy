@@ -1,0 +1,179 @@
+﻿@model BanHang.Models.Order
+
+@{
+    ViewData["Title"] = "Thông tin tài khoản";
+    var user = ViewBag.User;
+    var totalCart = ViewBag.TotalCart;
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Vegefoods</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/aos.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/ionicons.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/flaticon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/icomoon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+
+</head>
+<body class="goto-here">
+    <div class="py-1 bg-primary">
+        <div class="container">
+            <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+                <div class="col-lg-12 d-block">
+                    <div class="row d-flex">
+                        <div class="col-md pr-4 d-flex topper align-items-center">
+                            <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                            <span class="text"> 84+ 389517352</span>
+                        </div>
+                        <div class="col-md pr-4 d-flex topper align-items-center">
+                            <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                            <span class="text">nta51202004@gmail.com</span>
+                        </div>
+                        <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+                            <span class="text">Giao hàng trong 3–5 ngày làm việc & Đổi trả miễn phí</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-----------------------nav------------------------>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Vegefoods</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" onclick="scrollToTop()">Trang Chủ</a>
+                    </li>
+
+                    <script>
+                        function scrollToTop() {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: "smooth" // Cuộn mượt lên đầu trang
+                            });
+                        }
+                    </script>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cửa Hàng
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownShop">
+                            <a class="dropdown-item" asp-controller="BanHang" asp-action="Shop">Cửa hàng</a>
+                            <a class="dropdown-item" asp-controller="BanHang" asp-action="Wishlist">Danh sách yêu thích</a>
+                            <a class="dropdown-item" asp-controller="BanHang" asp-action="Cart">Giỏ hàng</a>
+                            <a class="dropdown-item" asp-controller="BanHang" asp-action="Checkout">Thanh toán</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="about">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="Contact">Liên hệ</a></li>
+                    <li class="nav-item cta cta-colored">
+                        <a class="nav-link" asp-controller="BanHang" asp-action="Cart">
+                            <span class="icon-shopping_cart"></span> [0]
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
+                        <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                            <a class="dropdown-item" asp-controller="ProfileUser" asp-action="Profile">Tài khoản</a>
+                            <a class="dropdown-item" method="post" asp-area="Identity" asp-page="/Account/Logout">Đăng xuất</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <!-- END nav -->
+
+    <h2>Chi tiết Đơn hàng</h2>
+    <p><strong>Khách hàng:</strong> @(Model.User != null ? Model.User.UserName : "Không xác định")</p>
+    <p><strong>Ngày đặt:</strong> @Model.OrderDate.ToString("dd/MM/yyyy")</p>
+    <p><strong>Tổng tiền:</strong> @Model.TotalPrice.ToString("C")</p>
+    <p><strong>Trạng thái:</strong> @Model.Status</p>
+
+    <form action="/Admin/UpdateStatus" method="post" class="d-flex align-items-center gap-2">
+        <input type="hidden" name="id" value="@Model.Id" />
+
+        <div class="ms-auto">
+            <a href="/ProfileUser/Profile" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </form>
+
+    <h3>Sản phẩm trong đơn hàng:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@(item.Product != null ? item.Product.Name : "Sản phẩm không xác định")</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice.ToString("C")</td>
+                    <td>@((item.Quantity * item.UnitPrice).ToString("C"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

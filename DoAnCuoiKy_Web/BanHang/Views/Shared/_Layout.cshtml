@@ -1,0 +1,214 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] VietNamses fruit</title>
+    <link rel="icon" href="~/images/05.jpg" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <!-- CSS từ wwwroot/css -->
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/aos.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/flaticon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/icomoon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/ionicons.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        <div class="py-1 bg-primary">
+            <div class="container">
+                <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+                    <div class="col-lg-12 d-block">
+                        <div class="row d-flex">
+                            <div class="col-md pr-4 d-flex topper align-items-center">
+                                <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                                <span class="text"> 84+ 389517352</span>
+                            </div>
+                            <div class="col-md pr-4 d-flex topper align-items-center">
+                                <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                                <span class="text">nta51202004@gmail.com</span>
+                            </div>
+                            <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+                                <span class="text">Nơi đăng tải mua sằm tùy theo sở thích của mọi người</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="BanHang" asp-action="MainPage">Stu2HandShop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="oi oi-menu"></span> Menu
+                </button>
+
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="BanHang" asp-action="MainPage" onclick="scrollToTop()">Trang Chủ</a>
+                        </li>
+
+                        <script>
+                            function scrollToTop() {
+                            window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                            });
+                            }
+                        </script>
+
+                        
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Product" asp-action="Index">Quản lý sản phẩm</a>
+                            </li>
+                            <!-- Quản lý người dùng -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="User">Quản lý tài khoản</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown">@UserManager.GetUserName(User)</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Identity/Account/Register?isAdmin=true">Tạo tài khoản Admin</a>
+                                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                        <button type="submit" class="dropdown-item">Đăng xuất</button>
+                                    </form>
+                                </div>
+                            </li>
+                        }
+                        else if (SignInManager.IsSignedIn(User))
+                        {
+
+                            <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="Shop">Cửa hàng</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="Blog">Giới thiệu</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="Contact">Liên hệ</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
+                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                    <a class="dropdown-item" asp-controller="ProfileUser" asp-action="Index">Tài khoản</a>
+                                    <a class="dropdown-item" href="#" onclick="showLogoutConfirm(event)">Đăng xuất</a>
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="media-body">
+                    <a href="#" class="mouse-icon">
+                        <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+                    </a>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Chợ SV 2Hand</h2>
+                        <p>Kênh mua bán, trao đổi đồ cũ dành cho cộng đồng sinh viên. Tiết kiệm, tiện lợi và kết nối.</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Danh Mục Nhanh</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Sản Phẩm</a></li>
+                            <li><a href="#" class="py-2 d-block">Giới Thiệu</a></li>
+                            <li><a href="" class="py-2 d-block">Liên Hệ</a></li>
+                            <li><a href="#" class="py-2 d-block">Đăng Tin</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Trợ giúp</h2>
+                        <div class="d-flex">
+                            <ul class="list-unstyled">
+                                <li><a href=" " class="py-2 d-block">Liên hệ hỗ trợ</a></li>
+                                <li><a href=" " class="py-2 d-block">Câu hỏi thường gặp</a></li>
+                                <li><a href=" " class="py-2 d-block">Điều khoản sử dụng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Bạn có câu hỏi?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span ></span><span class="text">Ký túc xá Khu B, ĐHQG TP.HCM, Việt Nam</span></li>
+                                <li><a href="#"><span ></span><span class="text">0123 456 789</span></a></li>
+                                <li><a href="#"><span></span><span class="text">hotro.chodosinhvien@email.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        Bản quyền ©<script>document.write(new Date().getFullYear());</script> Mọi quyền được bảo lưu | Template này được làm bởi <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <br>Chỉnh sửa cho Chợ Đồ Cũ Sinh Viên
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript từ wwwroot/js -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.2.1.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-migrate-3.0.1.min.js" asp-append-version="true"></script>
+    <script src="~/js/popper.min.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.magnific-popup.min.js" asp-append-version="true"></script>
+    <script src="~/js/aos.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.stellar.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.waypoints.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.easing.1.3.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.animateNumber.min.js" asp-append-version="true"></script>
+    <script src="~/js/scrollax.min.js" asp-append-version="true"></script>
+    <script src="~/js/google-map.js" asp-append-version="true"></script>
+    <script src="~/js/range.js" asp-append-version="true"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <form id="logoutForm" method="post" asp-area="Identity" asp-page="/Account/Logout" style="display:none;"></form>
+
+</body>
+</html>
