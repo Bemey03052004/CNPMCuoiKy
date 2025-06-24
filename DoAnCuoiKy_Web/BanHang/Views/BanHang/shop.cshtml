@@ -1,0 +1,103 @@
+﻿@using BanHang.Models
+@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Cửa Hàng Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+
+    <link rel="stylesheet" href="~/css/miain.css"> <!-- FILE TÙY CHỈNH CỦA BẠN PHẢI NẰM CUỐI CÙNG -->
+</head>
+<body class="goto-here">
+
+    <section class="ftco-section">
+        <div class="container">
+            <!-- THANH TÌM KIẾM -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="shop-controls-container">
+                        <!-- 1. Thanh tìm kiếm -->
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <form method="get" asp-action="Shop" class="shop-search-bar">
+                                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm bạn quan tâm..." value="@ViewBag.SearchKeyword" />
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MENU DANH MỤC -->
+            <div class="row justify-content-center">
+                <div class="col-md-10 mb-5 text-center">
+                    <ul class="product-category">
+                        <li><a href="@Url.Action("Shop", "BanHang")" class="@(ViewBag.SelectedCategory == null ? "active" : "")">Tất cả</a></li>
+                        @if (ViewBag.Categories != null)
+                        {
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Shop", "BanHang", new { categoryId = category.Id })"
+                                       class="@(ViewBag.SelectedCategory != null && ViewBag.SelectedCategory == category.Id ? "active" : "")">
+                                        @category.Name
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DANH SÁCH SẢN PHẨM -->
+            <div class="row">
+                @foreach (var product in Model.Where(p => p.ApprovalStatus == ProductApprovalStatus.DaDuyet))
+                {
+                    var isOutOfStock = product.StockQuantity == 0;
+                    var outOfStockClass = isOutOfStock ? "out-of-stock" : "";
+
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="product @outOfStockClass">
+                            <a href="@Url.Action("ProductSingle", "BanHang", new { id = product.Id })" class="img-prod">
+                                <img class="img-fluid" src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/default-product.png" : product.ImageUrl)" alt="@product.Name">
+                                @if (isOutOfStock)
+                                {
+                                    <div class="sold-out-overlay"><span>Hết hàng</span></div>
+                                }
+
+                            </a>
+                            <div class="text py-3 px-3 text-center">
+                                <h3><a href="@Url.Action("ProductSingle", "BanHang", new { id = product.Id })">@product.Name</a></h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price"><span class="price-sale">@product.Price.ToString("N0") VNĐ</span></p>
+                                    </div>
+                                </div>
+                                @if (!isOutOfStock)
+                                {
+                                    <div class="bottom-area d-flex px-3">
+                                        <div class="m-auto d-flex">
+                                            <!-- Nút Xem chi tiết -->
+                                            <a href="@Url.Action("ProductSingle", "BanHang", new { id = product.Id })" class="d-flex justify-content-center align-items-center text-center">
+                                                <span><i class="ion-ios-menu"></i></span>
+                                            </a>
+                                            <!-- Nút Yêu thích -->
+                                            <a href="#" class="add-to-favorite-btn d-flex justify-content-center align-items-center" data-product-id="@product.Id">
+                                                <span><i class="ion-ios-heart"></i></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

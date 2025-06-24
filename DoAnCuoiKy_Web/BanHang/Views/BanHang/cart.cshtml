@@ -1,0 +1,254 @@
+﻿@model List<Cart>
+@using System.Globalization
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<link rel="stylesheet" href="css/aos.css">
+
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+	<link rel="stylesheet" href="css/flaticon.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="~/css/miain.css" rel="stylesheet" />
+</head>
+<body class="goto-here">
+	
+	<section class="ftco-section ftco-cart">
+		<div class="container">
+			@if (Model != null && Model.Any())
+			{
+				<div class="row">
+					<div class="col-md-12 ftco-animate">
+						<div class="cart-list">
+							<table class="table">
+								<thead class="thead-primary">
+									<tr class="text-center">
+										<th>&nbsp;</th>
+										<th>&nbsp;</th>
+										<th>Tên sản phẩm</th>
+										<th>Giá</th>
+										<th>Số lượng</th>
+										<th>Tổng</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr class="text-center align-middle">
+											<!-- Xóa sản phẩm -->
+											<td class="product-remove">
+												<!-- Thêm data-cartid để truyền chính xác giỏ hàng cần xóa -->
+												<button type="button"
+														class="btn btn-outline-danger btn-sm rounded-circle delete-btn"
+														data-cartid="@item.Id"
+														style="width: 30px; height: 20px; border-radius: 50%; padding: 0; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
+													<span class="ion-ios-close fs-4"></span>
+												</button>
+											</td>
+
+
+
+											<!-- Ảnh sản phẩm -->
+											<td class="image-prod">
+												<img class="img-fluid" src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 100px; height: 100px; object-fit: cover;">
+											</td>
+
+											<!-- Thông tin sản phẩm -->
+											<td class="product-name">
+												<h6 class="fw-bold text-dark">@item.Product.Name</h6>
+												<p class="text-muted small">@item.Product.Description</p>
+											</td>
+
+											<!-- Giá -->
+											<td class="fw-bold text-dark">@item.Product.Price.ToString("C0", new CultureInfo("vi-VN"))</td>
+
+											<!-- Số lượng -->
+											<td class="quantity">
+												<div class="input-group">
+													<button class="btn btn-outline-secondary btn-sm minus-btn" data-id="@item.Id" style="width: 25px; border-radius: 10;">-</button>
+
+													<!-- Input số lượng -->
+													<input type="text"
+														   class="form-control text-center cart-quantity"
+														   value="@item.Quantity"
+														   data-id="@item.Id"
+														   readonly
+														   style="max-width: 50px;">
+
+													<button class="btn btn-outline-secondary btn-sm plus-btn" data-id="@item.Id" style="width: 25px; border-radius: 10;">+</button>
+												</div>
+											</td>
+
+
+
+
+
+											<!-- Tổng tiền -->
+											<td class="total fw-bold total-price-@item.Id">
+												@((item.Product.Price * item.Quantity).ToString("C0", new CultureInfo("vi-VN")))
+											</td>
+
+										</tr>
+									}
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!-- Tổng giỏ hàng -->
+				<div class="row justify-content-end">
+					<div class="col-md-6 col-lg-5 cart-wrap ftco-animate">
+						<div class="cart-total">
+							<h3>Tổng giỏ hàng</h3>
+							<p class="d-flex">
+								<span>Tổng tiền:</span>
+								<span>@Model.Sum(item => item.Product.Price * item.Quantity).ToString("C0", new CultureInfo("vi-VN"))</span>
+							</p>
+							<p>
+								<a href="@Url.Action("Checkout", "BanHang")" class="btn btn-primary py-3 px-4">Tiến hành thanh toán</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="text-center">
+					<h3>Giỏ hàng của bạn đang trống!</h3>
+					<a href="@Url.Action("Shop", "BanHang")" class="btn btn-primary mt-3">Tiếp tục mua sắm</a>
+				</div>
+			}
+		</div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="js/scrollax.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="js/google-map.js"></script>
+	<script src="js/main.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			// Sử dụng event delegation để bắt sự kiện khi DOM thay đổi
+			$(document).on("click", ".delete-btn", function () {
+				var row = $(this).closest("tr"); // Lấy dòng sản phẩm
+				var cartId = $(this).data("cartid"); // Lấy cartId từ nút xóa
+
+				$.ajax({
+					url: "/Cart/Delete",
+					type: "POST",
+					data: { cartId: cartId }, // Gửi cartId thay vì productId
+					headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+					success: function (response) {
+						if (response.success) {
+							row.remove(); // Xóa hàng trong bảng ngay lập tức
+							updateTotalCartPrice(response.totalCartPrice); // Cập nhật tổng giỏ hàng
+						}
+					},
+					error: function () {
+						alert("Không thể xóa sản phẩm!");
+					}
+				});
+			});
+
+			// Hàm cập nhật tổng tiền giỏ hàng
+			function updateTotalCartPrice(totalCartPrice) {
+				$(".cart-total span:last").text(totalCartPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+			}
+		});
+
+		$(document).ready(function () {
+			$(".plus-btn, .minus-btn").click(function () {
+				var cartId = $(this).data("id");
+				var quantityInput = $(".cart-quantity[data-id='" + cartId + "']");
+				var currentQuantity = parseInt(quantityInput.val());
+				var maxQuantity = parseInt($(".product-stock[data-id='" + cartId + "']").val()); // Lấy tồn kho từ giá trị trong input (hoặc thuộc tính HTML)
+
+				// Kiểm tra nếu nút cộng bị vô hiệu hóa thì không thực hiện gì thêm
+				if ($(".plus-btn[data-id='" + cartId + "']").prop("disabled")) {
+					return; // Nếu nút cộng bị vô hiệu hóa thì không thực hiện gì thêm
+				}
+
+				// Cập nhật số lượng
+				if ($(this).hasClass("plus-btn")) {
+					if (currentQuantity < maxQuantity) {
+						currentQuantity++;
+					}
+				} else if ($(this).hasClass("minus-btn") && currentQuantity > 1) {
+					currentQuantity--;
+				}
+
+				$.ajax({
+					url: "/Cart/UpdateCartQuantity",
+					type: "POST",
+					data: { cartId: cartId, quantity: currentQuantity },
+					success: function (response) {
+						if (response.success) {
+							quantityInput.val(currentQuantity);
+							$(".total-price-" + cartId).text(response.totalItemPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+							$(".cart-total span:last").text(response.totalCartPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+
+							// Kiểm tra xem nút cộng có bị vô hiệu hóa không
+							if (response.disablePlusButton) {
+								$(".plus-btn[data-id='" + cartId + "']").prop("disabled", true); // Vô hiệu hóa nút cộng
+							} else {
+								$(".plus-btn[data-id='" + cartId + "']").prop("disabled", false); // Kích hoạt lại nút cộng
+							}
+						} else {
+							// Hiển thị thông báo lỗi nếu có
+							alert(response.message);
+							$(".plus-btn[data-id='" + cartId + "']").prop("disabled", true); // Vô hiệu hóa nút cộng khi số lượng vượt quá tồn kho
+						}
+					},
+					error: function () {
+						alert("Cập nhật thất bại!");
+					}
+				});
+			});
+		});
+
+
+
+
+	</script>
+
+
+</body>
+</html>

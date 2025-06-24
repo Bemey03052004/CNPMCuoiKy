@@ -1,0 +1,128 @@
+﻿/* Đặt ảnh nền toàn trang */
+body {
+    background-image: url('../images/Login.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Pacifico', cursive;
+    flex-direction: column;
+}
+
+.welcome-banner {
+    font-family: 'Pacifico', cursive;
+    font-size: 30px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 20px 20px; /* Chỉ bo viền dưới */
+    width: 100%; /* Nền chiếm toàn bộ chiều rộng */
+    padding: 20px 0; /* Làm cho nền có độ cao phù hợp với nội dung */
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: absolute;
+    top: 0; /* Đưa phần tử lên sát viền trên */
+    left: 0;
+}
+
+.neumorphic-card h1 {
+    font-family: 'Pacifico', cursive;
+}
+
+.neumorphic-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2); /* trắng mờ */
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px); /* làm mờ nền sau */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Các phần còn lại của CSS giữ nguyên như bạn đã viết */
+
+
+
+
+
+/* Neumorphism Style */
+.neumorphic {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px #ffffff;
+}
+
+/* Container của form */
+.neumorphic-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    margin: 0 auto;
+    /* Làm trong suốt */
+    background: rgba(255, 255, 255, 0.2); /* trắng mờ */
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);  làm mờ nền sau */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Input fields */
+.neumorphic-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 10px 10px 20px #a3b1c6, inset -10px -10px 20px #ffffff;
+    background: #e0e5ec;
+    font-size: 16px;
+}
+
+/* Nút đăng nhập */
+.neumorphic-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #555;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .neumorphic-button:hover {
+        box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+        background: #d1d9e6;
+    }
+
+/* Link */
+a {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }

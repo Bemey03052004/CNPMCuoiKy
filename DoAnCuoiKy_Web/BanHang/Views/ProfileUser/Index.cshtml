@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Trang cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Đảm bảo sử dụng Layout chung
+    var userName = ViewBag.UserName;
+}
+<link href="~/css/miain.css" rel="stylesheet" />
+
+<!-- Phần "hero-bread" giống trang chủ (nếu muốn) -->
+<div class="hero-wrap hero-bread" style="background-image: url('@Url.Content("~/images/03.jpg")');">
+    @* Thay bg_profile.jpg bằng ảnh nền bạn muốn cho trang profile *@
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h3 class="breadcrumbs">thông Tin Tài khoản</span></h3>
+                <h1 class="mb-0 bread">Chào mừng @userName!</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2 class="mb-4" style="color: var(--dark-brown);">Quản lý tài khoản</h2>
+                <p>Tại đây bạn có thể quản lý các thông tin cá nhân, sản phẩm đã đăng và lịch sử mua hàng của mình.</p>
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-4 mb-3">
+                <div class="profile-action-card text-center p-4 h-100" style="background-color: var(--very-light-pink); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <span class="icon mb-3" style="font-size: 3rem; color: var(--main-pink);">
+                        <i class="fas fa-plus-circle"></i> <!-- Sử dụng Font Awesome icon, hoặc flaticon -->
+                        @* Nếu dùng flaticon: <span class="flaticon-add"></span> *@
+                    </span>
+                    <h3 style="color: var(--dark-pink-accent);">Đăng sản phẩm</h3>
+                    <p>Chia sẻ những món đồ bạn không dùng nữa với cộng đồng.</p>
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-primary mt-auto">Thêm sản phẩm mới</a>
+                    @* THAY asp-controller="Product" asp-action="Create" BẰNG ĐÚNG CONTROLLER/ACTION ĐĂNG SẢN PHẨM CỦA BẠN *@
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="profile-action-card text-center p-4 h-100" style="background-color: var(--very-light-pink); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <span class="icon mb-3" style="font-size: 3rem; color: var(--main-pink);">
+                        <i class="fas fa-history"></i>
+                        @* Nếu dùng flaticon: <span class="flaticon-compliant"></span> *@
+                    </span>
+                    <h3 style="color: var(--dark-pink-accent);">Lịch sử mua hàng</h3>
+                    <p>Xem lại các đơn hàng bạn đã đặt và trạng thái của chúng.</p>
+                    <a asp-controller="ProfileUser" asp-action="OrderHistory" class="btn btn-primary mt-auto">Xem lịch sử đơn hàng</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="profile-action-card text-center p-4 h-100" style="background-color: var(--very-light-pink); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <span class="icon mb-3" style="font-size: 3rem; color: var(--main-pink);">
+                        <i class="fas fa-user-edit"></i>
+                        @* Nếu dùng flaticon: <span class="flaticon-user"></span> *@
+                    </span>
+                    <h3 style="color: var(--dark-pink-accent);">Thông tin cá nhân</h3>
+                    <p>Cập nhật thông tin liên hệ và mật khẩu của bạn.</p>
+                    @* Link đến trang quản lý tài khoản của ASP.NET Core Identity *@
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-primary mt-auto">Chỉnh sửa thông tin</a>
+                </div>
+            </div>
+            <!-- Thêm các card chức năng khác nếu cần -->
+        </div>
+    </div>
+</section>

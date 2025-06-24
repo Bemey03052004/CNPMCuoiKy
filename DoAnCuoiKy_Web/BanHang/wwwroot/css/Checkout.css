@@ -1,0 +1,69 @@
+﻿/* =================================== */
+/* CHỈNH SỬA FORM CHI TIẾT THANH TOÁN */
+/* =================================== */
+
+.billing-form {
+    padding: 30px;
+    background-color: #f8f9fa; /* Màu nền nhạt hơn */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.billing-heading {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #5cb85c; /* Màu xanh lá cây chủ đạo */
+}
+
+.billing-form .row.align-items-end > div {
+    margin-bottom: 15px; /* Tạo khoảng cách giữa các nhóm trường */
+}
+
+.billing-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.billing-form .form-group .form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Đảm bảo padding và border không làm tăng kích thước phần tử */
+}
+
+.billing-form .select-wrap {
+    position: relative;
+}
+
+    .billing-form .select-wrap .icon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        color: #777;
+        pointer-events: none;
+    }
+
+    .billing-form .select-wrap select.form-control {
+        appearance: none; /* Ẩn mũi tên mặc định của trình duyệt */
+        padding-right: 30px; /* Tạo khoảng trống cho icon */
+    }
+
+/* Căn chỉnh các trường trên cùng một dòng khi có đủ không gian */
+@media (min-width: 768px) {
+    .billing-form .row.align-items-end .col-md-6:nth-child(odd) {
+        padding-right: 10px;
+    }
+
+    .billing-form .row.align-items-end .col-md-6:nth-child(even) {
+        padding-left: 10px;
+    }
+}
+
+/* Điều chỉnh cho trường Tỉnh/Thành phố chiếm toàn bộ chiều rộng */
+.billing-form .col-md-12:first-child .form-group {
+    margin-bottom: 20px; /* Tăng khoảng cách cho trường đầu tiên */
+}

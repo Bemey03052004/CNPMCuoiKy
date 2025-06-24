@@ -1,0 +1,796 @@
+﻿/* Miain.css (File theme tùy chỉnh) */
+
+/* 1. Định nghĩa các biến màu (giữ nguyên hoặc tùy chỉnh) */
+@import url('miain.css');
+:root {
+    --main-pink: #E91E63; /* Hồng chính */
+    --light-pink: #F8BBD0; /* Hồng nhạt */
+    --very-light-pink: #FFEBEE; /* Hồng rất nhạt */
+    --dark-pink-accent: #AD1457; /* Hồng đậm */
+    --text-on-pink-bg: #FFFFFF; /* Chữ trên nền hồng đậm */
+    --text-on-light-pink-bg: #333333; /* Chữ trên nền hồng nhạt */
+    /* Thêm các biến màu nâu, trắng, đen nếu cần cho theme mới */
+    --neutral-brown: #8D6E63; /* Nâu trung tính */
+    --light-brown: #A1887F; /* Nâu nhạt */
+    --dark-brown: #5D4037; /* Nâu đậm */
+    --pure-white: #FFFFFF;
+    --off-white: #FAFAFA; /* Trắng ngà */
+    --soft-black: #212121; /* Đen mềm */
+    --grey-text: #757575; /* Chữ xám */
+}
+
+/* Kiểu chữ cơ bản */
+body {
+    font-family: 'Poppins', sans-serif; /* Hoặc font bạn chọn */
+    color: var(--soft-black); /* Màu chữ mặc định */
+    line-height: 1.6;
+    background-color: var(--off-white); /* Màu nền chung cho trang nếu cần */
+}
+
+a {
+    color: var(--main-pink);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    a:hover {
+        color: var(--dark-pink-accent);
+    }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif; /* Font cho tiêu đề */
+    color: var(--dark-brown); /* Màu tiêu đề mặc định */
+}
+
+
+/* 2. Ghi đè màu chung và các phần tử */
+
+/* === Top Bar (Nếu bạn quyết định giữ lại) === */
+.py-1.bg-primary { /* Class này từ Bootstrap hoặc template gốc */
+    background-color: var(--main-pink) !important;
+}
+
+    .py-1.bg-primary .text,
+    .py-1.bg-primary .icon {
+        color: var(--text-on-pink-bg) !important;
+    }
+
+/* === Navbar === */
+/* .ftco_navbar.bg-dark { background: var(--dark-brown) !important; } /* Ví dụ nếu navbar tối */
+.navbar-brand { /* Giả sử class từ Bootstrap hoặc template gốc */
+    color: var(--main-pink) !important;
+    font-family: 'Amatic SC', cursive; /* Font đặc biệt cho logo */
+    font-size: 2rem;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item.active > a {
+    color: var(--main-pink) !important;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item .cta > a,
+.ftco-navbar-light .navbar-nav > .nav-item.cta > a {
+    background: var(--main-pink) !important;
+    border: 1px solid var(--main-pink) !important;
+    color: var(--text-on-pink-bg) !important;
+    border-radius: 20px; /* Bo tròn nút CTA */
+}
+
+    .ftco-navbar-light .navbar-nav > .nav-item .cta > a:hover,
+    .ftco-navbar-light .navbar-nav > .nav-item.cta > a:hover {
+        background: var(--dark-pink-accent) !important;
+        border: 1px solid var(--dark-pink-accent) !important;
+    }
+
+/* === Hero Slider (Quan trọng cho việc hiển thị ảnh nền) === */
+#home-section.hero {
+    /* Owl Carousel thường tự quản lý chiều cao section dựa trên item,
+       nhưng nếu cần, bạn có thể đặt min-height ở đây */
+    /* min-height: 550px; */
+    /* height: 70vh; */
+}
+
+.slider-item {
+    /* KHÔNG ĐẶT background-image: none !important; ở đây nữa */
+    /* background-color: var(--light-pink); */ /* Fallback color, có thể bỏ nếu muốn nền trong suốt khi ảnh chưa tải */
+
+    min-height: 550px; /* BẮT BUỘC: Đặt chiều cao cho slide item */
+    width: 100%; /* Đảm bảo chiều rộng */
+    /* Các thuộc tính này sẽ áp dụng cho ảnh nền đặt inline trong HTML */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Cho .overlay và .container định vị */
+}
+
+    .slider-item .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.35); /* Lớp phủ tối nhẹ để chữ nổi bật, có thể dùng var(--soft-black) với opacity */
+        /* Ví dụ: background: var(--soft-black); opacity: 0.35; */
+        z-index: 1;
+    }
+
+    .slider-item .container { /* Để container chứa text nằm trên overlay */
+        position: relative;
+        z-index: 2;
+        /* Các class như justify-content-center, align-items-center, text-center cho row và col
+       vẫn lấy từ Bootstrap hoặc template gốc nếu bạn không xóa chúng khỏi HTML */
+    }
+
+    .slider-item .slider-text h1 { /* Class .slider-text từ template gốc */
+        color: var(--pure-white);
+        font-size: 3rem; /* Điều chỉnh kích thước */
+        font-weight: 700;
+        margin-bottom: 0.75rem; /* Thay cho mb-2 */
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .slider-item .slider-text .subheading { /* Class .subheading từ template gốc */
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.4rem; /* Điều chỉnh kích thước */
+        margin-bottom: 1.5rem; /* Thay cho mb-4 */
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+    }
+
+    .slider-item .btn-primary { /* Nút trong slider, class .btn-primary từ template/Bootstrap */
+        background: var(--main-pink) !important;
+        border: 1px solid var(--main-pink) !important;
+        color: var(--text-on-pink-bg) !important;
+        padding: 12px 30px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 25px; /* Bo tròn hơn */
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+        .slider-item .btn-primary:hover {
+            background: var(--dark-pink-accent) !important;
+            border: 1px solid var(--dark-pink-accent) !important;
+            transform: translateY(-2px); /* Hiệu ứng nhấc nút lên khi hover */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+
+/* === Services Section Icons === */
+/* Các class services, icon, bg-color-*, media, block-6, heading từ template gốc */
+.ftco-section { /* Class chung cho các section từ template gốc */
+    padding: 6em 0;
+}
+
+.services .icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem auto; /* Căn giữa và margin bottom */
+}
+
+    .services .icon.bg-color-1.active, .services .icon.bg-color-1 {
+        background: var(--main-pink) !important;
+    }
+
+    .services .icon.bg-color-2 {
+        background: var(--light-pink) !important;
+    }
+
+    .services .icon.bg-color-3 {
+        background: var(--dark-pink-accent) !important;
+    }
+
+    .services .icon.bg-color-4 {
+        background: #F48FB1 !important;
+    }
+
+    .services .icon span { /* Class span bên trong icon, thường là flaticon */
+        color: var(--text-on-pink-bg);
+        font-size: 2.5rem;
+    }
+
+    .services .icon.bg-color-2 span {
+        color: var(--text-on-light-pink-bg);
+    }
+
+.media.block-6 .media-body h3.heading {
+    color: var(--dark-brown); /* Đổi sang màu nâu cho đồng bộ */
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.media.block-6 .media-body span {
+    color: var(--grey-text);
+}
+
+
+/* === Category Section === */
+/* Các class category-wrap-2, category-wrap, img, text từ template gốc */
+.ftco-category.ftco-no-pt { /* Class từ template */
+    padding-top: 0 !important;
+}
+
+.category-wrap-2.img, .category-wrap.img {
+    /* background-image: none !important; */ /* Bỏ ảnh nền nếu bạn đặt ảnh qua HTML,
+                                                hoặc nếu bạn muốn nền màu thì giữ lại.
+                                                Hiện tại các mục category không có ảnh nền inline trong HTML của bạn. */
+    background-color: var(--very-light-pink); /* Nền mặc định cho category nếu không có ảnh */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 250px;
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Thêm bóng đổ nhẹ */
+    margin-bottom: 30px; /* Class mb-4 từ bootstrap */
+}
+
+.category-wrap-2.img { /* Mục category lớn hơn */
+    background-color: var(--light-pink); /* Màu nền khác biệt */
+    min-height: 300px; /* Cao hơn chút */
+}
+
+.category-wrap-2 .text h2 {
+    color: var(--dark-pink-accent); /* Giữ màu hồng đậm */
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-wrap-2 .text p {
+    color: var(--soft-black); /* Chữ đậm hơn chút */
+    margin-bottom: 1rem;
+}
+
+.category-wrap-2 .text .btn-primary {
+    /* Sử dụng style của .slider-item .btn-primary hoặc định nghĩa riêng */
+    background: var(--main-pink) !important;
+    border-color: var(--main-pink) !important;
+    color: var(--text-on-pink-bg) !important;
+    border-radius: 20px;
+}
+
+    .category-wrap-2 .text .btn-primary:hover {
+        background: var(--dark-pink-accent) !important;
+        border-color: var(--dark-pink-accent) !important;
+    }
+
+/* Category nhỏ hơn */
+.category-wrap.img {
+    background-color: var(--pure-white); /* Nền trắng cho nổi bật */
+    border: 1px solid var(--light-pink);
+    min-height: 200px;
+}
+
+.category-wrap .text h2 a {
+    color: var(--dark-brown) !important; /* Đổi sang màu nâu */
+    font-size: 1.5rem;
+}
+
+    .category-wrap .text h2 a:hover {
+        color: var(--main-pink) !important;
+    }
+
+.category-wrap .text.px-3.py-1 { /* Class từ Bootstrap */
+    background: transparent;
+    padding: 10px !important; /* Ghi đè padding của Bootstrap nếu cần */
+}
+
+
+/* === General Buttons (Ghi đè .btn-primary của Bootstrap/template) === */
+.btn-primary {
+    background: var(--main-pink) !important;
+    border-color: var(--main-pink) !important;
+    color: var(--text-on-pink-bg) !important;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover, .btn-primary:focus {
+        background: var(--dark-pink-accent) !important;
+        border-color: var(--dark-pink-accent) !important;
+        color: var(--text-on-pink-bg) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+/* === Headings chung === */
+.ftco-section .heading-section .subheading { /* Class từ template */
+    color: var(--main-pink);
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.ftco-section .heading-section h2 { /* Class từ template */
+    color: var(--dark-brown);
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+
+/* === Footer (Nếu bạn có footer) === */
+.ftco-footer.ftco-section {
+    background: var(--very-light-pink);
+    padding: 4em 0;
+}
+
+.ftco-footer .ftco-heading-2 {
+    color: var(--main-pink);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.ftco-footer p,
+.ftco-footer .list-unstyled li a,
+.ftco-footer .block-23 ul li .text,
+.ftco-footer .block-23 ul li a .text {
+    color: var(--grey-text);
+    font-size: 0.95rem;
+}
+
+    .ftco-footer .list-unstyled li a:hover,
+    .ftco-footer .block-23 ul li a:hover .text {
+        color: var(--main-pink);
+    }
+
+.ftco-footer .mouse .mouse-icon {
+    border: 1px solid var(--light-pink);
+}
+
+    .ftco-footer .mouse .mouse-icon .mouse-wheel span {
+        background: var(--main-pink);
+    }
+
+/* === Loader === */
+#ftco-loader { /* ID của loader */
+    /* Các style cho loader để nó full màn hình và có nền đã có trong style.css gốc */
+}
+
+    #ftco-loader .path { /* Class của SVG path trong loader */
+        stroke: var(--main-pink) !important;
+    }
+
+/* === Dropdown Menu (Nếu có navbar) === */
+.dropdown-menu { /* Class của Bootstrap */
+    border: 1px solid var(--light-pink);
+    background-color: var(--pure-white);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border-radius: 0 0 5px 5px;
+}
+
+.dropdown-item { /* Class của Bootstrap */
+    color: var(--soft-black);
+    padding: .5rem 1.5rem; /* Tăng padding */
+}
+
+    .dropdown-item:hover, .dropdown-item:focus {
+        color: var(--main-pink);
+        background-color: var(--very-light-pink);
+    }
+
+/* Miain.css - Thêm vào cuối file hoặc vào một mục riêng cho trang Profile */
+
+/* === Trang Profile User (Index.cshtml) === */
+
+/* --- Phần Hero Bread của trang Profile --- */
+/* .hero-wrap.hero-bread đã có style chung từ template gốc hoặc Miain.css trước đó.
+   Chúng ta có thể tùy chỉnh thêm nếu cần cho trang profile cụ thể.
+   Ví dụ, nếu muốn overlay khác: */
+.hero-wrap.hero-bread[style*="bg_profile.jpg"] .container { /* Chỉ áp dụng nếu ảnh nền là bg_profile.jpg */
+    /* Không cần thay đổi nhiều nếu style chung đã ổn */
+}
+
+.hero-wrap.hero-bread[style*="bg_profile.jpg"] .breadcrumbs span,
+.hero-wrap.hero-bread[style*="bg_profile.jpg"] .breadcrumbs span a {
+    color: rgba(255, 255, 255, 0.85); /* Màu breadcrumbs trên nền profile */
+    font-size: 0.9rem;
+}
+
+    .hero-wrap.hero-bread[style*="bg_profile.jpg"] .breadcrumbs span a:hover {
+        color: var(--pure-white);
+    }
+
+.hero-wrap.hero-bread[style*="bg_profile.jpg"] h1.bread {
+    color: var(--pure-white);
+    font-size: 2.8rem; /* Có thể điều chỉnh */
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+
+/* --- Section chính của trang Profile --- */
+.profile-page-section { /* Class mới thêm vào <section class="ftco-section profile-page-section"> */
+    background-color: var(--off-white); /* Nền nhẹ cho toàn section */
+    padding-top: 4em; /* Giảm padding top một chút nếu hero-bread đã cao */
+    padding-bottom: 6em;
+}
+
+    .profile-page-section .section-intro h2 { /* Class mới cho phần giới thiệu */
+        color: var(--dark-brown);
+        font-weight: 600;
+        font-size: 2.2rem;
+    }
+
+    .profile-page-section .section-intro p {
+        color: var(--grey-text);
+        font-size: 1.1rem;
+        max-width: 600px; /* Giới hạn chiều rộng của đoạn text giới thiệu */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+/* --- Card Chức Năng (Profile Action Card) --- */
+.profile-action-card {
+    background-color: var(--pure-white); /* Nền trắng cho card */
+    border-radius: 12px; /* Bo góc nhiều hơn */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07); /* Bóng đổ mềm mại hơn */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Sử dụng flexbox để căn chỉnh nội dung bên trong */
+    flex-direction: column; /* Các item xếp chồng lên nhau */
+    height: 100%; /* Đảm bảo các card có chiều cao bằng nhau nếu dùng class h-100 của Bootstrap */
+}
+
+    .profile-action-card:hover {
+        transform: translateY(-5px); /* Hiệu ứng nhấc lên khi hover */
+        box-shadow: 0 8px 25px rgba(var(--main-pink-rgb, 233, 30, 99), 0.15); /* Bóng đổ màu hồng khi hover - cần định nghĩa --main-pink-rgb */
+        /* Hoặc dùng bóng đổ màu đen: box-shadow: 0 8px 25px rgba(0,0,0,0.1); */
+    }
+
+/* Định nghĩa biến màu RGB nếu chưa có (để dùng cho box-shadow) */
+:root {
+    /* ... các biến màu khác ... */
+    --main-pink-rgb: 233, 30, 99; /* Giá trị RGB của --main-pink: #E91E63 */
+}
+
+
+.profile-action-card .icon {
+    font-size: 3.5rem; /* Kích thước icon lớn hơn */
+    color: var(--main-pink);
+    margin-bottom: 1rem; /* Tăng khoảng cách */
+    line-height: 1; /* Đảm bảo icon không chiếm quá nhiều chiều cao */
+}
+/* Nếu dùng flaticon, bạn có thể cần style riêng cho class flaticon đó */
+/* ví dụ:
+.profile-action-card .flaticon-add {
+    font-size: 3.5rem;
+    color: var(--main-pink);
+}
+*/
+
+.profile-action-card h3 {
+    color: var(--dark-pink-accent); /* Màu hồng đậm cho tiêu đề card */
+    font-size: 1.5rem; /* Kích thước tiêu đề card */
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.profile-action-card p {
+    color: var(--grey-text); /* Màu chữ mô tả trong card */
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem; /* Khoảng cách trước nút */
+    flex-grow: 1; /* Đẩy nút xuống dưới nếu các đoạn p có chiều cao khác nhau */
+}
+
+.profile-action-card .btn-primary {
+    /* Style cho nút .btn-primary đã được định nghĩa chung trong Miain.css
+       Nếu muốn tùy chỉnh riêng cho nút trong card: */
+    /* background-color: var(--main-pink); */
+    /* border-color: var(--main-pink); */
+    /* color: var(--text-on-pink-bg); */
+    padding: 10px 20px;
+    font-weight: 500;
+    margin-top: auto; /* Quan trọng để đẩy nút xuống dưới cùng khi card dùng flex-direction: column và p có flex-grow: 1 */
+    width: 80%; /* Nút không chiếm toàn bộ chiều rộng card */
+    align-self: center; /* Căn giữa nút */
+}
+
+    .profile-action-card .btn-primary:hover {
+        /* background-color: var(--dark-pink-accent); */
+        /* border-color: var(--dark-pink-accent); */
+    }
+
+
+/* Responsive cho card chức năng (ví dụ) */
+@media (max-width: 991.98px) { /* Cho tablet và mobile nhỏ hơn */
+    .profile-action-card {
+        margin-bottom: 30px; /* class mb-3 của bootstrap đã có, nhưng có thể tăng */
+    }
+
+    .col-md-4.mb-3:last-child .profile-action-card { /* Bỏ margin bottom cho card cuối cùng trên mobile nếu nó xếp thành 1 cột */
+        /* margin-bottom: 0; */ /* Bootstrap mb-3 sẽ áp dụng, nên có thể không cần */
+    }
+}
+
+@media (max-width: 767.98px) { /* Cho mobile */
+    .hero-wrap.hero-bread[style*="bg_profile.jpg"] h1.bread {
+        font-size: 2.2rem;
+    }
+
+    .profile-page-section .section-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .profile-page-section .section-intro p {
+        font-size: 1rem;
+    }
+
+    .profile-action-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .profile-action-card .icon {
+        font-size: 3rem;
+    }
+}
+/* === Trang Cửa Hàng (Shop.cshtml) === */
+
+/* --- Hero Breadcrumb --- */
+.hero-wrap.hero-bread[style*="bg_1.jpg"] .breadcrumbs span,
+.hero-wrap.hero-bread[style*="bg_1.jpg"] .breadcrumbs span a {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+    .hero-wrap.hero-bread[style*="bg_1.jpg"] .breadcrumbs span a:hover {
+        color: var(--pure-white);
+    }
+
+.hero-wrap.hero-bread[style*="bg_1.jpg"] h1.bread {
+    color: var(--pure-white);
+    font-size: 3.5rem;
+    font-weight: 700;
+    font-family: 'Lora', serif; /* Font nhất quán với các tiêu đề khác */
+}
+
+/* --- Thanh Tìm Kiếm --- */
+.search-box .fondo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Chiếm toàn bộ chiều rộng container */
+    max-width: 600px; /* Giới hạn chiều rộng tối đa */
+    height: 48px;
+    background: var(--pure-white);
+    border-radius: 24px; /* Bo tròn hoàn toàn */
+    padding: 6px 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin: 0 auto; /* Căn giữa */
+}
+
+.search-box input.form-control {
+    width: 100%;
+    height: 100%;
+    color: var(--dark-brown); /* Màu chữ nâu đậm */
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: var(--grey-text);
+    opacity: 1;
+}
+
+.search-box button i {
+    font-size: 1.2rem; /* Icon to hơn một chút */
+    color: var(--main-pink); /* Icon màu hồng */
+    transition: color 0.3s ease;
+}
+
+.search-box button:hover i {
+    color: var(--dark-pink-accent);
+}
+
+
+/* --- Menu Danh Mục Sản Phẩm --- */
+.product-category {
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid var(--light-pink); /* Đường gạch chân màu hồng nhạt */
+    padding-bottom: 15px;
+}
+
+    .product-category li {
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+        .product-category li a {
+            color: var(--dark-brown); /* Màu chữ nâu đậm */
+            padding: 8px 18px;
+            border-radius: 20px; /* Bo tròn */
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+            .product-category li a:hover {
+                color: var(--main-pink);
+                border-color: var(--light-pink);
+                background-color: var(--very-light-pink);
+            }
+
+            .product-category li a.active {
+                background: var(--main-pink);
+                color: var(--text-on-pink-bg);
+                border-color: var(--main-pink);
+            }
+
+
+/* --- Thẻ Sản Phẩm (Product Card) --- */
+.product {
+    border: 1px solid #f0f0f0;
+    border-radius: 8px; /* Bo góc nhẹ */
+    overflow: hidden; /* Đảm bảo các phần tử con không tràn ra ngoài */
+    transition: all 0.3s ease;
+}
+
+    .product:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+    }
+
+    .product .img-prod img {
+        transition: transform 0.3s ease;
+    }
+
+    .product:hover .img-prod img {
+        transform: scale(1.05);
+    }
+
+    .product .text h3 {
+        font-size: 1rem; /* Kích thước chữ vừa phải */
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 8px;
+        height: 40px; /* Giới hạn chiều cao để các thẻ bằng nhau */
+        overflow: hidden;
+    }
+
+        .product .text h3 a {
+            color: var(--dark-brown);
+        }
+
+    .product .text .price {
+        color: var(--main-pink);
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    /* --- Các nút hành động trên thẻ sản phẩm --- */
+    .product .bottom-area {
+        opacity: 0; /* Ẩn đi mặc định */
+        transition: opacity 0.3s ease;
+    }
+
+    .product:hover .bottom-area {
+        opacity: 1; /* Hiện ra khi hover */
+    }
+
+    .product .bottom-area a {
+        width: 40px;
+        height: 40px;
+        background-color: var(--pure-white);
+        border: 1px solid var(--light-pink);
+        border-radius: 50%;
+        color: var(--main-pink);
+        transition: all 0.3s ease;
+    }
+
+        .product .bottom-area a:hover {
+            background-color: var(--main-pink);
+            color: var(--pure-white);
+            border-color: var(--main-pink);
+        }
+
+        .product .bottom-area a span i {
+            font-size: 1.2rem;
+        }
+
+/* --- Xử lý sản phẩm hết hàng --- */
+.out-of-stock .img-prod::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5); /* Lớp phủ trắng mờ */
+    z-index: 1;
+}
+
+.out-of-stock .sold-out-overlay {
+    background-color: var(--dark-pink-accent); /* Màu hồng đậm */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 0.9rem;
+}
+/* === KHU VỰC LỌC VÀ TÌM KIẾM TRANG SHOP === */
+
+.shop-controls-container {
+    background-color: var(--pure-white);
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
+    margin-bottom: 2.5rem; /* Khoảng cách với danh sách sản phẩm bên dưới */
+}
+
+/* --- Thanh tìm kiếm mới --- */
+.shop-search-bar {
+    width: 100%;
+    position: relative;
+}
+
+    .shop-search-bar .form-control {
+        height: 48px;
+        border: 2px solid #e9ecef; /* Viền xám nhạt */
+        border-radius: 24px; /* Bo tròn hoàn toàn */
+        padding-left: 50px; /* Tạo khoảng trống cho icon kính lúp */
+        padding-right: 20px;
+        font-size: 1rem;
+        color: var(--dark-brown);
+        transition: all 0.3s ease;
+    }
+
+        .shop-search-bar .form-control:focus {
+            border-color: var(--main-pink); /* Viền chuyển màu hồng khi focus */
+            box-shadow: 0 0 0 0.2rem rgba(var(--main-pink-rgb), 0.25); /* Đổ bóng nhẹ màu hồng */
+        }
+
+    .shop-search-bar .search-icon {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        font-size: 1.1rem;
+        color: var(--grey-text); /* Màu icon mặc định */
+        pointer-events: none; /* Để có thể click xuyên qua icon */
+    }
+
+    .shop-search-bar .form-control:focus + .search-icon {
+        color: var(--main-pink); /* Icon chuyển màu hồng khi focus vào input */
+    }
+
+/* --- Menu danh mục (giữ nguyên hoặc tùy chỉnh nhẹ) --- */
+.product-category-menu {
+    border-bottom: none; /* Bỏ gạch chân cũ */
+    margin-top: 20px;
+}
+
+    .product-category-menu li {
+        display: inline-block;
+        margin: 5px;
+    }
+
+        .product-category-menu li a {
+            color: var(--dark-brown);
+            background-color: #f1f3f5; /* Nền xám nhạt cho các nút */
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+            .product-category-menu li a:hover {
+                background-color: var(--light-pink); /* Nền hồng nhạt khi hover */
+                color: var(--dark-pink-accent);
+            }
+
+            .product-category-menu li a.active {
+                background: var(--main-pink);
+                color: var(--pure-white);
+                box-shadow: 0 2px 5px rgba(var(--main-pink-rgb), 0.3);
+            }

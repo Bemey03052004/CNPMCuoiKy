@@ -1,0 +1,108 @@
+﻿@model Product
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vegefoods - Thêm Sản Phẩm</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/aos.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/ionicons.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/flaticon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/icomoon.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+    <link href="~/css/product.css" rel="stylesheet" />
+    <link href="~/css/miain.css" rel="stylesheet" />
+
+    
+</head>
+<body class="goto-here">
+  
+<div class="container mt-5 product-container create-product-form">
+
+
+    <div class="card-header text-white" style="background-color:#FFEBEE;">
+            <h1>Thêm sản phẩm mới</h1>
+    </div>
+
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="form-group">
+            <label asp-for="Name">Tên sản phẩm</label>
+            <input asp-for="Name" class="form-control" placeholder="Nhập tên sản phẩm..." />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price">Giá bán (VNĐ)</label>
+            <input asp-for="Price" class="form-control" placeholder="Nhập giá..." />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Mô tả</label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Mô tả ngắn về sản phẩm..."></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImageUrl">Hình ảnh</label>
+            <input type="file" asp-for="ImageUrl" class="form-control" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+                <label for="AdditionalImages">Ảnh phụ (tối đa 5 ảnh)</label>
+                <input type="file" name="additionalImages" multiple class="form-control" accept="image/*" />
+                <small class="text-muted">Chọn nhiều ảnh để mô tả sản phẩm rõ hơn (tối đa 5 ảnh).</small>
+            </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryId">Danh mục</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+                <option value="">-- Chọn danh mục --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StockQuantity">Tồn kho</label>
+            <input asp-for="StockQuantity" type="number" class="form-control" placeholder="Số lượng tồn..." />
+            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+        </div>
+            <div class="form-group mb-3">
+                <label asp-for="ContactLink"></label>
+                <input asp-for="ContactLink" class="form-control" placeholder="Dán link Facebook, Zalo hoặc nhập SĐT..." />
+                <span asp-validation-for="ContactLink" class="text-danger"></span>
+            </div>
+        <div class="form-group">
+            <label asp-for="Unit">Đơn vị tính</label>
+            <input asp-for="Unit" class="form-control" placeholder="Ví dụ: kg, hộp, trái..." />
+            <span asp-validation-for="Unit" class="text-danger"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <a asp-action="Index" class="btn btn-secondary me-3">Quay lại danh sách</a>
+            <button type="submit" class="btn btn-primary">Thêm mới</button>
+        </div>
+    </form>
+</div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
